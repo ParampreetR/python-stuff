@@ -1,23 +1,23 @@
-hn = 16 # hn stands for hidden number 
+from random import randint
+
+hn = randint(1, 100)
 chancesLeft = 9
-chancesTaken = 0
-while (True):
-    if chancesLeft == 0 or chancesTaken == 9:
-         print("You have no more chancesLeft....GAME OVER...")
-         break
-    else:
+while chancesLeft > 0:
         en = int(input("Pls enter number to guess the hidden number : "))  # en stands for entered number
-        chancesTaken = chancesTaken + 1
         if en == hn:
             print("\nCongratulations! You guessed the right number...its amazing yar...")
-            print("\nYou taken",chancesTaken, "chances to guess the number")
-            break
+            print("You taken", (9 - chancesLeft), "chances to guess the number")
+            exit(0)
+
         else:
-            print("\nOops! wrong number pls try again")
+            print("Oops! wrong number pls try again")
+
             if en > hn:
                 print("Your number is high, enter low number")
             else:
                 print("Your number is low, enter high number")
-            chancesLeft = chancesLeft - 1
-            print("Total chancesLeft left : ", chancesLeft)
+
+            chancesLeft-= 1
+            print("Total chances left : ", chancesLeft)
             
+print("You have no more chancesLeft....GAME OVER...")
