@@ -21,5 +21,3 @@ while (True):
             chancesLeft = chancesLeft - 1
             print("Total chancesLeft left : ", chancesLeft)
             
-            c = sum((3,5))
-            
