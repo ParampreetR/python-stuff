@@ -1,211 +1,122 @@
+#!/usr/bin/python3
+
 # Health management system.......
 # total 3 clients, Rohan, Harry and Hamad
 # total 6 files, each person 2 fiels one for food and one for exercise
 # choice 1 is for food and choice 2 is for exercise
-def getdate():
-    import datetime
-    return datetime.datetime.now()
+import datetime
 
-def user_selector_check():
+users = ["harry", "rohan", "hamad"]
+tasks = ["food", "exercise"]
+
+def get_user_input():
     """
-    checks input wheather the input is valid or not
+    take user input and checks wheather the input is valid or not
     """
+    
+    print("\nWhich user u want to select?\n1.Harry\n2.Rohan\n3.Hamad\n")
+    user_selector = int(input("Please select user : "))
+    
     if user_selector == 1:
-        print("harry bhai's profile is Locked")
+        print("+ Harry bhai's profile loaded successfully")
   
     elif user_selector == 2:
-        print("rohan bhai's profile is locked")
+        print("+ Rohan bhai's profile loaded successfully")
   
     elif user_selector == 3:
-        print("hamad bhai's profile is locked")
+        print("+ Hamad bhai's profile loaded successfully")
  
     else:
-        print("pls enter valid input ")
+        print("- Pls enter valid input")
         exit()
 
-def food_or_exercise_check():
+    return users[user_selector - 1]
+
+def get_task_input():
     """
-    this function checks the input between food and exercise....this funciton will exit the program if the input will be except 1 and 2
+    take task input and checks the input between food and exercise....this funciton will exit the program if the input is anything except 1 and 2
     """   
-    if food_or_exercise_selector == 1:
-        print("locked food section")
+    
+    print("\nWhich task you want to lock?\n1.food\n2.exercise\n")
+    task_selector = int(input("Pls enter your choice : "))
+    
+    if task_selector == 1:
+        print("+ Selected food section")
 
-
-    elif food_or_exercise_selector == 2:
-        print("locked exercise section")
-
+    elif task_selector == 2:
+        print("+ Selected exercise section")
 
     else:
-        print("pls enter valid input")
+        print("- Pls enter valid input")
         exit()
 
-def insert_or_retrieve_check():
-    if insert_or_retrieve_selector == 1:
-        print("insertion is activated")
+    return tasks[task_selector - 1]
+
+def get_operation_input():
+    """
+    take operation input and return symbolic number to represent operation. 1 for insert and 2 for retrieve
+
+    """
+    print("\nWhich operation u want to perform?")
+    task_selector = int(input("1.Insert data\n2.Retrieve data\n\nEnter your choice : "))
+
+    if task_selector == 1:
+        print("+ OK! Insertion activated")
+        return task_selector
 
 
-    elif insert_or_retrieve_selector == 2:
-        print("retrieve data is activated")
+    elif task_selector == 2:
+        print("+ OK! Retrieving activated")
+        return task_selector
 
-    
     else:
-        print("pls enter valid input")
+        print("- Pls enter valid input")
         exit()
-# for user 1 ----
-def insert_food_data_harry():
-    # user harry insert in food
-    print("which u want to write in the file pls type >>>")
-    content = input()
+
+
+def insert_data(username, taskname):
+    filename = username + "_" + taskname + ".txt"
+
+    try:
+        with open(filename, "a") as f:
+            data_to_insert = input("Input data to be inserted\n> ")
+            dt = str(datetime.datetime.now())
+            file_content = "[" + dt[:19] + "]" + " >>> " + data_to_insert + "\n"
+            f.write(file_content)
     
-    dt = str(getdate())
-
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
-
-    with open("harry_food.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")    
-
-def retrieve_food_data_harry():
-    with open("harry_food.txt") as f:
-        print(f.read())
-
-def insert_exercise_data_harry():
-    print("which u want to write in the file pls type >>>")
-
-    content = input()
-
-    dt = str(getdate())
-
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
-
-    with open("harry_exercise.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")
+        print("+ Content written successfully")
+    
+    except Exception as err:
+        print("!! Unexpected error in creating file and saving data\n" + err)
+        exit(-1)
         
-def retrieve_exercise_data_harry():
-    with open("harry_exercise.txt") as f:
-        print(f.read())
 
-# for user 2
-def insert_food_data_rohan():
-    print("which u want to write in the file pls type >>>")
-    content = input()
 
-    dt = str(getdate())
+def retrieve_data(username, taskname):
+    filename = username + "_" + taskname + ".txt"
+    
+    try:
+        with open(filename) as f:
+            return f.read()
 
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
+    except FileNotFoundError:
+        return "! No data found"
 
-    with open("rohan_food.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")   
-
-def retrieve_food_data_rohan():
-    with open("rohan_food.txt") as f:
-        print(f.read())
-
-def insert_exercise_data_rohan():
-    print("which u want to write in the file pls type >>>")
-    content = input()
-
-    dt = str(getdate())
-
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
-
-    with open("rohan_exercise.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")   
-
-def retrieve_exercise_data_rohan():
-    with open("rohan_exercise.txt") as f:
-        print(f.read())
-
-# for user 3
-def insert_food_data_hamad():
-    print("which u want to write in the file pls type >>>")
-    content = input()
-
-    dt = str(getdate())
-
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
-
-    with open("hamad_food.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")   
-
-def retrieve_food_data_hamad():
-    with open("hamad_food.txt") as f:
-        print(f.read())
-
-def insert_exercise_data_hamad():
-    print("which u want to write in the file pls type >>>")
-    content = input()
-
-    dt = str(getdate())
-
-    fcontent = "[" + dt[:19] + "]" + " >>> " + content
-
-    with open("hamad_exercise.txt", "a") as f:
-        f.write(fcontent)
-        f.write("\n")
-        print("content written successfully")   
-
-def retrieve_exercise_data_hamad():
-    with open("hamad_exercise.txt") as f:
-        print(f.read())
+    except Exception as err:
+        print("!! Unexpected error in retrieving file\n" + err)
+        exit(-1)
 
 # starting of the code.....
+if __name__ == "__main__":
+    username = get_user_input()
+    taskname = get_task_input()
+    operation = get_operation_input()
 
-print("\nWhich user u want to select\n\n1.Harry\n2.Rohan\n3.Hamad\n")
-user_selector = int(input("Please select user : "))
-user_selector_check()
 
-print("what you want to lock\n\n1.food\n2.exercise")
-food_or_exercise_selector = int(input("\nPls enter your choice : "))
-food_or_exercise_check()
-
-print("Which operation u want to perform\n")
-insert_or_retrieve_selector = int(input("1.Insert data\n2.Retrieve data\n\nEnter your choice : "))
-insert_or_retrieve_check()
-# print(insert_or_retrieve_selector)
-# print(user_selector_check.__doc__)
-
-if user_selector == 1:
-    if food_or_exercise_selector == 1:
-        if insert_or_retrieve_selector == 1:
-            insert_food_data_harry()
-        else:
-            retrieve_food_data_harry()
-    else:
-        if insert_or_retrieve_selector == 1:
-            insert_exercise_data_harry()
-        else:
-            retrieve_exercise_data_harry()
+    if operation == 1:
+        insert_data(username, taskname)
+    elif operation == 2:
+        data = retrieve_data(username, taskname)
+        print(data)
     
-elif user_selector == 2:
-    if food_or_exercise_selector == 1:
-        if insert_or_retrieve_selector == 1:
-            insert_food_data_rohan()
-        else:
-            retrieve_food_data_rohan()
-    else:
-        if insert_or_retrieve_selector == 1:
-            insert_exercise_data_rohan()
-        else:
-            retrieve_exercise_data_rohan()
-
-elif user_selector == 3:
-    if food_or_exercise_selector == 1:
-        if insert_or_retrieve_selector == 1:
-            insert_food_data_hamad()
-        else:
-            retrieve_food_data_hamad()
-    else:
-        if insert_or_retrieve_selector == 1:
-            insert_exercise_data_hamad()
-        else:
-            retrieve_exercise_data_hamad()
+    exit(0)
