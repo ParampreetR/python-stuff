@@ -87,7 +87,7 @@ def insert_data(username, taskname):
         print("+ Content written successfully")
     
     except Exception as err:
-        print("!! Unexpected error in creating file and saving data\n" + err)
+        print("!! Unexpected error in creating file and saving data\n" + str(err))
         exit(-1)
         
 
@@ -103,7 +103,7 @@ def retrieve_data(username, taskname):
         return "! No data found"
 
     except Exception as err:
-        print("!! Unexpected error in retrieving file\n" + err)
+        print("!! Unexpected error in retrieving file\n" + str(err))
         exit(-1)
 
 # starting of the code.....
